@@ -1,5 +1,7 @@
 package com.hive.jdbc.client;
 
+import groovy.util.logging.Slf4j;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -7,8 +9,9 @@ import java.sql.ResultSet;
 /**
  * @author revanthreddy 
  * Basic example to test the hiveserver2 connection 
- * hive --service hiveserver2
+ * 使用前，启动hiveserver2
  */
+@Slf4j
 public class HiveJdbcConnection {
 	private static String driverName = "org.apache.hive.jdbc.HiveDriver";
 
@@ -18,13 +21,13 @@ public class HiveJdbcConnection {
 			Class.forName(driverName);
 			Connection connection = null;
 			System.out.println("Before getting connection");
-			connection = DriverManager.getConnection("jdbc:hive2://localhost:10000/default", "root", "root@123");
+			connection = DriverManager.getConnection("jdbc:hive2://pseduoDisHadoop:10000/test", "hadoop", "123456");
 			System.out.println("After getting connection " + connection);
 
-			ResultSet resultSet = connection.createStatement().executeQuery("select * from default.employee");
-
+			ResultSet resultSet = connection.createStatement().executeQuery("select * from emp");
+            //遍历查询结果
 			while (resultSet.next()) {
-				System.out.println("EmpId : " + resultSet.getString(1) + ", EmpName : " + resultSet.getString(2));
+				System.out.println("name : " + resultSet.getString(1) + ", age : " + resultSet.getString(2));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
