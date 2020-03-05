@@ -1,6 +1,7 @@
 package com.hive.jdbc.client;
 
 import groovy.util.logging.Slf4j;
+import org.mortbay.log.Log;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -27,7 +28,7 @@ public class HiveJdbcConnection {
 			ResultSet resultSet = connection.createStatement().executeQuery("select * from emp");
             //遍历查询结果
 			while (resultSet.next()) {
-				System.out.println("name : " + resultSet.getString(1) + ", age : " + resultSet.getString(2));
+				Log.info("name : {}, age :{}", resultSet.getString(1) , resultSet.getString(2));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
